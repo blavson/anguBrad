@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { FormsModule } from '@angular/forms';
 
@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
   // tslint:disable-next-line: no-inferrable-types
   enableAdd = false;
   showUserForm = false;
+  @ViewChild('userForm') form: any;
 
   constructor() {}
 
@@ -67,8 +68,15 @@ export class UsersComponent implements OnInit {
     user.hide = !user.hide;
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-    console.log(2342);
+  onSubmit({ value, valid }: { value: User; valid: boolean }) {
+    if (!valid) {
+    } else {
+      value.isActive = true;
+      value.registered = new Date();
+      value.hide = true;
+      this.users.unshift(value);
+
+      this.form.reset();
+    }
   }
 }
