@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
@@ -7,61 +8,67 @@ import { User } from 'src/app/models/User';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-users : User[];
-isBrief : boolean;
-enableAdd : boolean =  true;
+  user: User = {
+    firstName: '',
+    lastName: '',
+    email: ''
+  };
 
+  users: User[];
+  showExtended = true;
+  // tslint:disable-next-line: no-inferrable-types
+  enableAdd = false;
+  showUserForm = false;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.users = [
       {
         firstName: 'John',
         lastName: 'Doe',
-        age: 30,
-        address : {
-          street: '50 st main',
-          city: 'Boston',
-          state: 'MA'
-        },
-        image : 'http://lorempixel.com/600/600/people/3',
-      }, {
+        email: 'john@gmail.com',
+        isActive: true,
+        registered: new Date('01/01/2018'),
+        hide: true
+      },
+      {
         firstName: 'Kevin',
         lastName: 'Johnson',
-        age: 34,
-        address : {
-          street: '20 School street',
-          city: 'Lynn',
-          state: 'MA'
-        },
-        image : 'http://lorempixel.com/600/600/people/2', 
-      }, {
+        email: 'kevin@yahoo.com',
+        isActive: false,
+        registered: new Date('11/03/2017 06:20:00'),
+        hide: true
+      },
+      {
         firstName: 'Karen',
         lastName: 'Williams',
-        age: 26,
-        address : {
-          street: '55 Mill Street',
-          city: 'Miami',
-          state: 'Fl'
-        },
-        image : 'http://lorempixel.com/600/600/people/1',
-      }      
-    ];
-    this.isBrief = false;
-    this.userAdd({
-      firstName: 'David',
-      lastName: 'Jackson',
-      age: 44,
-      address : {
-        street: '12 Wake Street',
-        city: 'Miami',
-        state: 'Fl'
+        email: 'karen@gmail.com',
+        isActive: true,
+        registered: new Date('10/04/2014 02:26'),
+        hide: true
       }
-    }      );
+    ];
+  }
+  /*
+  addUser() {
+    this.user.isActive = true;
+    this.user.registered = new Date();
+
+    this.users.unshift(this.user);
+    this.user = {
+      firstName: '',
+      lastName: '',
+      email: ''
+    };
+  }
+*/
+  toggleHide(user) {
+    user.hide = !user.hide;
   }
 
-    userAdd(user:User) {
-      this.users.push(user);
-    }
+  onSubmit(e) {
+    e.preventDefault();
+    console.log(2342);
+  }
 }
